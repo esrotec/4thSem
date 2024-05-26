@@ -1,0 +1,120 @@
+Consider the following schemas for "bank" database relations, where the primary keys are underlined.
+
+branch (branch-name, branch_city, assets) 
+customer (customer-name, customer_street, customer_city)
+loan (loan-number, branch_name, amount)
+borrower (customer-name, loan-number)
+account (account-number, branch_name, balance) 
+depositor (customer-name, account-number)
+
+Write down the SQL expressions for the following queries:
+i. Find the number of depositor at each branch. 
+ii. List in alphabetic order all customers who have a loan at the 'Perryridge' branch.
+iii. Update database to change karim's street to a new one.
+
+
+
+
+Schema:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: 
+
+CREATE DATABASE IF NOT EXISTS bank;
+USE bank;
+
+
+
+
+CREATE TABLE branch (
+  branch_name VARCHAR(50),
+  branch_city VARCHAR(50),
+  assets DECIMAL(10, 2),
+  PRIMARY KEY (branch_name)
+);
+
+
+CREATE TABLE customer (
+  customer_name VARCHAR(50),
+  customer_street VARCHAR(100),
+  customer_city VARCHAR(50),
+  PRIMARY KEY (customer_name)
+);
+
+
+CREATE TABLE loan (
+  loan_number INT,
+  branch_name VARCHAR(50),
+  amount DECIMAL(10, 2),
+  PRIMARY KEY (loan_number),
+  FOREIGN KEY (branch_name) REFERENCES branch(branch_name)
+);
+
+
+CREATE TABLE borrower (
+  customer_name VARCHAR(50),
+  loan_number INT,
+  PRIMARY KEY (customer_name, loan_number),
+  FOREIGN KEY (customer_name) REFERENCES customer(customer_name),
+  FOREIGN KEY (loan_number) REFERENCES loan(loan_number)
+);
+
+
+CREATE TABLE account (
+  account_number INT,
+  branch_name VARCHAR(50),
+  balance DECIMAL(10, 2),
+  PRIMARY KEY (account_number),
+  FOREIGN KEY (branch_name) REFERENCES branch(branch_name)
+);
+
+
+CREATE TABLE depositor (
+  customer_name VARCHAR(50),
+  account_number INT,
+  PRIMARY KEY (customer_name, account_number),
+  FOREIGN KEY (customer_name) REFERENCES customer(customer_name),
+  FOREIGN KEY (account_number) REFERENCES account(account_number)
+);
+
+
+
+
+Data-Manipulation Language (DML)::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+INSERT INTO branch (branch_name, branch_city, assets)
+VALUES ('Perryridge', 'City A', 100000),
+       ('Brighton', 'City B', 150000),
+       ('Weston', 'City C', 200000);
+
+
+INSERT INTO customer (customer_name, customer_street, customer_city)
+VALUES ('John Smith', '123 Main St', 'City A'),
+       ('Alice Johnson', '456 Oak St', 'City B'),
+       ('Robert Brown', '789 Elm St', 'City C'),
+       ('Karim', '987 Maple St', 'City D');
+
+
+INSERT INTO loan (loan_number, branch_name, amount)
+VALUES (1, 'Perryridge', 5000),
+       (2, 'Perryridge', 10000),
+       (3, 'Brighton', 7500),
+       (4, 'Weston', 12000);
+
+
+INSERT INTO borrower (customer_name, loan_number)
+VALUES ('John Smith', 1),
+       ('Alice Johnson', 2),
+       ('Robert Brown', 3),
+       ('Karim', 4);
+
+
+INSERT INTO account (account_number, branch_name, balance)
+VALUES (1001, 'Perryridge', 5000),
+       (1002, 'Perryridge', 10000),
+       (1003, 'Brighton', 7500),
+       (1004, 'Weston', 12000);
+
+
+INSERT INTO depositor (customer_name, account_number)
+VALUES ('John Smith', 1001),
+       ('Alice Johnson', 1002),
+       ('Robert Brown', 1003),
+       ('Karim', 1004);

@@ -1,0 +1,25 @@
+Query::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+(i) Find all customers who have both a loan and an account at the bank.
+Query:
+SELECT DISTINCT c.customer_name
+FROM customer c
+JOIN borrower b ON c.customer_name = b.customer_name
+JOIN loan l ON b.loan_number = l.loan_number
+JOIN branch br ON l.branch_name = br.branch_name
+JOIN account a ON br.branch_name = a.branch_name;
+
+
+
+Query::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+(ii) Find the average account balance at the 'Perryridge' branch.
+SELECT AVG(balance) AS average_balance
+FROM Account
+WHERE branch_name = 'Perryridge';
+
+
+
+Query::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+(iii) Insert a record into the account relation with the values of account number as "AC101" at "Dhanmondi" branch and the balance is tk 30000.
+INSERT INTO account (account_number, branch_name, balance)
+VALUES ('AC-101', 'Dhanmondi', 30000);
+

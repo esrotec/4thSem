@@ -1,0 +1,25 @@
+Query::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+(i) Find the number of tuples in the works relation:
+Query:
+SELECT COUNT(*) AS tuple_count
+FROM works;
+
+
+
+
+
+Query::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+(ii) Find all employees in the database who earn more than each employee of Trust Bank.
+Query:
+SELECT e.employee_name
+FROM employee e
+WHERE NOT EXISTS (
+  SELECT *
+  FROM works w
+  JOIN company c ON w.company_name = c.company_name
+  WHERE c.company_name = 'Trust Bank' AND w.salary <= (SELECT MAX(salary) FROM works WHERE employee_name = e.employee_name)
+);
+
+
+
+

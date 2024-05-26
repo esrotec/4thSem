@@ -1,0 +1,31 @@
+Query::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+(i) Find the loan number of those loans with loan amounts between tk 10000 and tk 20000.
+Query:
+SELECT loan_number
+FROM loan
+WHERE amount BETWEEN 10000 AND 20000;
+
+
+
+
+Query::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+(ii) Find all customers who have an account but no loan at the bank.
+Query:
+SELECT c.customer_name
+FROM customer c
+JOIN depositor d ON c.customer_name = d.customer_name
+LEFT JOIN borrower b ON c.customer_name = b.customer_name
+WHERE b.customer_name IS NULL;
+
+
+
+
+
+Query::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+(iii) Add a record in the "customer" table using a form.
+Query:
+INSERT INTO customer (customer_name, customer_street, customer_city)
+VALUES ('John Doe', '123 Main St', 'New York');
+
+
+

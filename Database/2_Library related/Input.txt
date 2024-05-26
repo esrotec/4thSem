@@ -1,0 +1,105 @@
+Consider the following relational schema: 
+
+employee(emp-no, name, office, age) 
+books(isbn, title, author, publisher) 
+loan(emp-no, isbn, date)
+
+Write down the SQL expression for the following queries:
+i. Print the names of all employees who have borrowed any book published by "XYZ".
+ii. Print the names of all employees who have borrowed all books published by "XYZ". 
+iii. For each publisher, print the names of employees who have borrowed more than five books of that publisher.
+
+
+
+
+Schema:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: 
+
+Data-Definition Language (DDL)
+
+CREATE DATABASE IF NOT EXISTS library;
+USE library;
+
+
+
+
+CREATE TABLE employee (
+  emp_no INT PRIMARY KEY,
+  name VARCHAR(50),
+  office VARCHAR(50),
+  age INT
+);
+
+
+CREATE TABLE books (
+  isbn VARCHAR(20) PRIMARY KEY,
+  title VARCHAR(100),
+  author VARCHAR(50),
+  publisher VARCHAR(50)
+);
+
+
+CREATE TABLE loan (
+  emp_no INT,
+  isbn VARCHAR(20),
+  date DATE,
+  FOREIGN KEY (emp_no) REFERENCES employee(emp_no),
+  FOREIGN KEY (isbn) REFERENCES books(isbn)
+);
+
+
+
+Data-Manipulation Language (DML)::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+INSERT INTO `books` (`isbn`, `title`, `author`, `publisher`) VALUES
+('ISBN001', 'Book 1', 'Author 1', 'XYZ'),
+('ISBN002', 'Book 2', 'Author 2', 'ABC'),
+('ISBN003', 'Book 3', 'Author 3', 'XYZ'),
+('ISBN004', 'Book 4', 'Author 4', 'XYZ'),
+('ISBN005', 'Book 5', 'Author 5', 'XYZ'),
+('ISBN006', 'Book 6', 'Author 6', 'XYZ'),
+('ISBN007', 'Book 7', 'Author 1', 'XYZ');
+
+
+
+
+INSERT INTO `employee` (`emp_no`, `name`, `office`, `age`) VALUES
+(1, 'John Doe', 'Office A', 30),
+(2, 'Jane Smith', 'Office B', 35),
+(3, 'Mike Johnson', 'Office A', 28),
+(4, 'Emily Brown', 'Office C', 32);
+
+
+
+
+INSERT INTO `loan` (`emp_no`, `isbn`, `date`) VALUES
+(1, 'ISBN001', '2023-06-01'),
+(1, 'ISBN002', '2023-06-02'),
+(1, 'ISBN003', '2023-06-03'),
+(2, 'ISBN001', '2023-06-04'),
+(2, 'ISBN002', '2023-06-05'),
+(3, 'ISBN001', '2023-06-06'),
+(3, 'ISBN002', '2023-06-07'),
+(3, 'ISBN003', '2023-06-08'),
+(3, 'ISBN004', '2023-06-09'),
+(4, 'ISBN001', '2023-06-10'),
+(4, 'ISBN002', '2023-06-11'),
+(4, 'ISBN003', '2023-06-12'),
+(4, 'ISBN004', '2023-06-13'),
+(4, 'ISBN005', '2023-06-14'),
+(4, 'ISBN006', '2023-06-15'),
+(1, 'ISBN001', '2023-06-01'),
+(1, 'ISBN002', '2023-06-02'),
+(1, 'ISBN003', '2023-06-03'),
+(1, 'ISBN001', '2023-06-04'),
+(1, 'ISBN002', '2023-06-05'),
+(1, 'ISBN001', '2023-06-06'),
+(1, 'ISBN002', '2023-06-07'),
+(1, 'ISBN003', '2023-06-08'),
+(1, 'ISBN004', '2023-06-09'),
+(1, 'ISBN001', '2023-06-10'),
+(1, 'ISBN002', '2023-06-11'),
+(1, 'ISBN003', '2023-06-12'),
+(1, 'ISBN004', '2023-06-13'),
+(1, 'ISBN005', '2023-06-14'),
+(1, 'ISBN006', '2023-06-15'),
+(1, 'ISBN007', '2023-06-01');

@@ -1,0 +1,39 @@
+Query::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+(i) Print the names of all employees who have borrowed any book published by "XYZ".
+Query:
+SELECT DISTINCT e.name
+FROM employee e
+JOIN loan l ON e.emp_no = l.emp_no
+JOIN books b ON l.isbn = b.isbn
+WHERE b.publisher = 'XYZ';
+
+
+
+Query::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+(ii) Print the names of all employees who have borrowed all books published by "XYZ".
+Query:
+SELECT e.name
+FROM employee e
+WHERE NOT EXISTS (
+    SELECT b.isbn
+    FROM books b
+    WHERE b.publisher = 'XYZ'
+    AND NOT EXISTS (
+        SELECT l.isbn
+        FROM loan l
+        WHERE l.emp_no = e.emp_no
+        AND l.isbn = b.isbn
+    )
+);
+
+
+
+Query::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+(iii) For each publisher, print the names of employees who have borrowed more than five books of that publisher.
+Query:
+SELECT b.publisher, e.name
+FROM books b
+JOIN loan l ON b.isbn = l.isbn
+JOIN employee e ON l.emp_no = e.emp_no
+GROUP BY b.publisher, e.name
+HAVING COUNT(DISTINCT b.isbn) > 5;

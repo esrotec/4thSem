@@ -1,0 +1,113 @@
+Consider the following schemas for "bank" database relations, where the primary keys are underlined.
+
+branch (branch-name, branch_city, assets)
+customer (customer-name, customer_street, customer_city)
+loan (loan-number, branch_name, amount)
+borrower (customer-name, loan-number)
+account (account-number, branch_name, balance)
+depositor (customer-name, account-number)
+
+Write down the SQL expressions for the following queries: 
+i. Find all customers who have both a loan and an account at the bank.
+ii. Find the average account balance at the “Perryridge” branch. 
+iii. Insert record into the account relation with the values of account number is "AC-101” at "Dhanmondi" branch and the balance is tk 30000.
+
+
+
+Schema:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: 
+
+Data-Definition Language (DDL)
+
+CREATE DATABASE IF NOT EXISTS bank;
+USE bank;
+
+
+
+
+CREATE TABLE branch (
+  branch_name VARCHAR(100),
+  branch_city VARCHAR(100),
+  assets DECIMAL(10,2),
+  PRIMARY KEY (branch_name)
+);
+
+
+CREATE TABLE customer (
+  customer_name VARCHAR(100),
+  customer_street VARCHAR(255),
+  customer_city VARCHAR(255),
+  PRIMARY KEY (customer_name)
+);
+
+
+CREATE TABLE loan (
+  loan_number VARCHAR(100),
+  branch_name VARCHAR(100),
+  amount DECIMAL(10,2),
+  PRIMARY KEY (loan_number),
+  FOREIGN KEY (branch_name) REFERENCES branch (branch_name)
+);
+
+
+CREATE TABLE borrower (
+  customer_name VARCHAR(100),
+  loan_number VARCHAR(100),
+  PRIMARY KEY (customer_name, loan_number),
+  FOREIGN KEY (customer_name) REFERENCES customer (customer_name),
+  FOREIGN KEY (loan_number) REFERENCES loan (loan_number)
+);
+
+
+CREATE TABLE account (
+  account_number VARCHAR(100),
+  branch_name VARCHAR(100),
+  balance DECIMAL(10,2),
+  PRIMARY KEY (account_number),
+  FOREIGN KEY (branch_name) REFERENCES branch (branch_name)
+);
+
+
+CREATE TABLE depositor (
+  customer_name VARCHAR(100),
+  account_number VARCHAR(100),
+  PRIMARY KEY (customer_name, account_number),
+  FOREIGN KEY (customer_name) REFERENCES customer (customer_name),
+  FOREIGN KEY (account_number) REFERENCES account (account_number)
+);
+
+
+Data-Manipulation Language (DML):::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+INSERT INTO branch (branch_name, branch_city, assets)
+VALUES ('Perryridge', 'CityA', 500000),
+       ('Dhanmondi', 'CityB', 300000);
+
+
+INSERT INTO customer (customer_name, customer_street, customer_city)
+VALUES ('John Doe', '123 Main Street', 'New York'),
+       ('Jane Smith', '456 Elm Street', 'Los Angeles'),
+       ('Mike Johnson', '789 Oak Street', 'Chicago');
+
+
+INSERT INTO loan (loan_number, branch_name, amount)
+VALUES ('LN-001', 'Perryridge', 5000),
+       ('LN-002', 'Perryridge', 10000),
+       ('LN-003', 'Dhanmondi', 7500);
+
+
+INSERT INTO account (account_number, branch_name, balance)
+VALUES ('AC-001', 'Perryridge', 10000),
+       ('AC-002', 'Perryridge', 20000),
+       ('AC-003', 'Dhanmondi', 15000);
+
+
+INSERT INTO borrower (customer_name, loan_number)
+VALUES ('John Doe', 'LN-001'),
+       ('Jane Smith', 'LN-002'),
+       ('Mike Johnson', 'LN-003');
+
+
+INSERT INTO depositor (customer_name, account_number)
+VALUES ('John Doe', 'AC-001'),
+       ('Jane Smith', 'AC-002'),
+       ('Mike Johnson', 'AC-003');

@@ -1,0 +1,35 @@
+Query::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+(i) Find the number of depositor at each branch. 
+Query:
+SELECT account.branch_name, COUNT(*) AS depositor_count
+FROM depositor
+JOIN account ON depositor.account_number = account.account_number
+GROUP BY account.branch_name;
+
+
+Query::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+(ii) List in alphabetic order all customers who have a loan at the 'Perryridge' branch.
+Query:
+SELECT customer_name
+FROM customer
+WHERE customer_name IN (
+  SELECT customer_name
+  FROM borrower
+  WHERE loan_number IN (
+    SELECT loan_number
+    FROM loan
+    WHERE branch_name = 'Perryridge'
+  )
+)
+ORDER BY customer_name;
+
+
+
+
+Query::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+(iii) Update database to change karim's street to a new one.
+Query:
+UPDATE customer
+SET customer_street = 'New Street'
+WHERE customer_name = 'Karim';
+

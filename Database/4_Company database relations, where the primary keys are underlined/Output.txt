@@ -1,0 +1,30 @@
+Query::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+(i) Find the total salary of each company.
+Query:
+SELECT company.company_name, SUM(works.salary) AS total_salary
+FROM company
+LEFT JOIN works ON company.company_name = works.company_name
+GROUP BY company.company_name;
+
+
+
+
+Query::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+(ii) Find all employees in the database who do not work for ACI Ltd.
+Query:
+SELECT employee.employee_name
+FROM employee
+LEFT JOIN works ON employee.employee_name = works.employee_name
+WHERE works.company_name IS NULL OR works.company_name <> 'ACI Ltd';
+
+
+
+
+
+Query::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+(iii) Insert record into the employee table with proper values.
+Query:
+INSERT INTO employee (employee_name, street, city)
+VALUES ('John Doe', '123 Main Street', 'New York');
+
+
