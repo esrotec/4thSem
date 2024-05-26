@@ -1,0 +1,5 @@
+Enter a number: 5
+The number is odd
+
+Enter a number: 6
+The number is even

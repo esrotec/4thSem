@@ -1,0 +1,3 @@
+Enter first number: 1
+Enter second number: 5
+The smaller number is: 1

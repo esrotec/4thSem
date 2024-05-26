@@ -1,0 +1,2 @@
+Enter element: 4 2 5 7
+AFTER SHORTING: 2 4 5 7
