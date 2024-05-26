@@ -1,0 +1,66 @@
+#include <iostream>
+using namespace std;
+
+
+// Function to find the maximum and minimum number using divide and conquer
+void findMaxMin(int arr[], int left, int right, int& maxNum, int& minNum) {
+    if (left == right) {
+        // Only one element in the array
+        maxNum = arr[left];
+        minNum = arr[left];
+    } else if (left == right - 1) {
+        // Two elements in the array
+        if (arr[left] < arr[right]) {
+            maxNum = arr[right];
+            minNum = arr[left];
+        } else {
+            maxNum = arr[left];
+            minNum = arr[right];
+        }
+    } else {
+        // More than two elements in the array
+        int mid = (left + right) / 2;
+        int maxNum1, maxNum2, minNum1, minNum2;
+
+
+        // Divide the array into two halves and recursively find the maximum and minimum in each half
+        findMaxMin(arr, left, mid, maxNum1, minNum1);
+        findMaxMin(arr, mid + 1, right, maxNum2, minNum2);
+
+
+        // Combine the results from the two halves to get the overall maximum and minimum
+        maxNum = (maxNum1 > maxNum2) ? maxNum1 : maxNum2;
+        minNum = (minNum1 < minNum2) ? minNum1 : minNum2;
+    }
+}
+
+
+// Main function
+int main() {
+    int n;
+
+
+    cout << "Enter the number of elements in the array: ";
+    cin >> n;
+
+
+    int arr[n];
+
+
+    cout << "Enter the elements of the array: ";
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+
+
+    int maxNum = arr[0];
+    int minNum = arr[0];
+    findMaxMin(arr, 0, n - 1, maxNum, minNum);
+
+
+    cout << "Maximum number: " << maxNum << endl;
+    cout << "Minimum number: " << minNum << endl;
+
+
+    return 0;
+}

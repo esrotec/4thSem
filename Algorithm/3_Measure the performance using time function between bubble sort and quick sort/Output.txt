@@ -1,0 +1,7 @@
+Enter the size of the array: 100000
+Bubble Sort:
+Time taken: 20844 milliseconds (20.844 seconds)
+
+
+Quick Sort:
+Time taken: 187 milliseconds (0.187 seconds)

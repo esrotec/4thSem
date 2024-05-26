@@ -1,0 +1,19 @@
+Enter the number of items: 5
+Enter the cost and weight of each item:
+Item 1:
+Cost: 10
+Weight: 5
+Item 2:
+Cost: 20
+Weight: 10
+Item 3:
+Cost: 30
+Weight: 15
+Item 4:
+Cost: 40 
+Weight: 20
+Item 5:
+Cost: 50
+Weight: 25
+Enter the capacity of the knapsack: 50
+Maximum achievable value: 100

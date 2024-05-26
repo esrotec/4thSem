@@ -1,0 +1,118 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+
+// Function to swap two elements
+void swap(int* a, int* b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+
+// Bubble sort function
+void bubbleSort(int arr[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                swap(&arr[j], &arr[j + 1]);
+            }
+        }
+    }
+}
+
+
+// Function to partition the array and return the pivot index
+int partition(int arr[], int low, int high) {
+    int pivot = arr[high];
+    int i = low - 1;
+
+
+    for (int j = low; j < high; j++) {
+        if (arr[j] <= pivot) {
+            i++;
+            swap(&arr[i], &arr[j]);
+        }
+    }
+
+
+    swap(&arr[i + 1], &arr[high]);
+    return i + 1;
+}
+
+
+// Quick sort function
+void quickSort(int arr[], int low, int high) {
+    if (low < high) {
+        int pivot = partition(arr, low, high);
+
+
+        quickSort(arr, low, pivot - 1);
+        quickSort(arr, pivot + 1, high);
+    }
+}
+
+
+// Function to generate random numbers in the array
+void generateRandomArray(int arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        arr[i] = rand() % 100;
+    }
+}
+
+
+// Function to measure the performance of sorting algorithms
+void measurePerformance(int n) {
+    int* arr1 = new int[n];
+    int* arr2 = new int[n];
+
+
+    generateRandomArray(arr1, n);
+    for (int i = 0; i < n; i++) {
+        arr2[i] = arr1[i];
+    }
+
+
+    clock_t start, end;
+    double timeTaken;
+
+
+    // Measure time for bubble sort
+    start = clock();
+    bubbleSort(arr1, n);
+    end = clock();
+    timeTaken = double(end - start) / CLOCKS_PER_SEC;
+    cout << "Bubble Sort:\n";
+    cout << "Time taken: " << timeTaken * 1000 << " milliseconds (" << timeTaken << " seconds)\n\n";
+
+
+    // Measure time for quick sort
+    start = clock();
+    quickSort(arr2, 0, n - 1);
+    end = clock();
+    timeTaken = double(end - start) / CLOCKS_PER_SEC;
+    cout << "Quick Sort:\n";
+    cout << "Time taken: " << timeTaken * 1000 << " milliseconds (" << timeTaken << " seconds)\n";
+
+
+    delete[] arr1;
+    delete[] arr2;
+}
+
+
+// Main function
+int main() {
+    int n;
+
+
+    cout << "Enter the size of the array: ";
+    cin >> n;
+
+
+    measurePerformance(n);
+
+
+    return 0;
+}

@@ -1,0 +1,6 @@
+Enter the number of elements in the array: 8
+Enter the elements of the array:
+12 45 234  657 234 4 2345 23
+Sorted array: 4 12 23 45 234 234 657 2345 
+Enter the target element to search: 23    
+Element found at index 2.

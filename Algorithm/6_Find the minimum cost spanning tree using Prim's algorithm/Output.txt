@@ -1,0 +1,10 @@
+Enter the number of vertices: 4
+Enter the weight of the edges:
+0 2 0 6
+2 0 3 8
+0 3 0 0
+6 8 0 0
+Minimum Cost Spanning Tree:
+Edge: 0 - 1     Weight: 2  
+Edge: 1 - 2     Weight: 3  
+Edge: 0 - 3     Weight: 6 

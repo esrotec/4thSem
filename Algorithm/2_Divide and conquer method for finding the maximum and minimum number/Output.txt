@@ -1,0 +1,4 @@
+Enter the number of elements in the array: 7
+Enter the elements of the array: 3 2 5 7 4 2 1
+Maximum number: 7
+Minimum number: 1
